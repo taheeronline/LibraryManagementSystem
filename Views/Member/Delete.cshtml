@@ -1,0 +1,17 @@
+@model Member
+
+@{
+    ViewData["Title"] = "Delete Member";
+}
+
+<div class="content-container">
+    <h2>Delete Member</h2>
+    <p>Are you sure you want to delete the Member <strong>@Model.Name</strong>?</p>
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="button-container">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a href="/Member" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

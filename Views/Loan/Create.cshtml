@@ -1,0 +1,39 @@
+@model Loan
+
+@{
+    ViewData["Title"] = "Issue New Loan";
+}
+
+<div class="content-container">
+    <h2>Issue New Loan</h2>
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label>Book:</label>
+            <select asp-for="BookId" class="form-control" asp-items="ViewBag.Books">
+                <option value="">Select a Book</option>
+            </select>
+            <span asp-validation-for="BookId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Member:</label>
+            <select asp-for="MemberId" class="form-control" asp-items="ViewBag.Members">
+                <option value="">Select a Member</option>
+            </select>
+            <span asp-validation-for="MemberId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Issued Date:</label>
+            <input asp-for="LoanDate" type="date" class="form-date" />
+            <span asp-validation-for="LoanDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Due Date:</label>
+            <input asp-for="ReturnDate" type="date" class="form-date" />
+            <span asp-validation-for="ReturnDate" class="text-danger"></span>
+        </div>
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="/Loan" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

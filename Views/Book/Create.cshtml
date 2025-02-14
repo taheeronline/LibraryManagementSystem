@@ -1,0 +1,39 @@
+﻿@model Book
+
+@{
+    ViewData["Title"] = "Add New Book";
+}
+
+<div class="content-container">
+    <h2>Add New Book</h2>
+    <form asp-action="Create">
+        <div class="form-group">
+            <label for="Title">Title</label>
+            <input type="text" class="form-control" id="Title" name="Title" required />
+        </div>
+        <div class="form-group">
+            <label for="Author">Author</label>
+            <input type="text" class="form-control" id="Author" name="Author" required />
+        </div>
+        <div class="form-group">
+            <label for="ISBN">ISBN</label>
+            <input type="text" class="form-control" id="ISBN" name="ISBN" required />
+        </div>
+        <div class="form-group">
+            <label>Category:</label>
+            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories">
+                <option value="">Select a Category</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="IsAvailable">Availability</label>
+            <select class="form-control" id="IsAvailable" name="IsAvailable" height="1000px">
+                <option value="true">Available</option>
+                <option value="false">Checked Out</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Save</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

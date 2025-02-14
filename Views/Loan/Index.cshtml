@@ -1,0 +1,38 @@
+@model IEnumerable<Loan>
+
+@{
+    ViewData["Title"] = "Loans";
+}
+
+<div class="content-container">
+    <h2>Loans</h2>
+    <a href="/Loan/Create" class="btn btn-primary">Issue New Loan</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Book</th>
+                <th>Member</th>
+                <th>Issued Date</th>
+                <th>Due Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var loan in Model)
+            {
+                <tr>
+                    <td>@loan.Id</td>
+                    <td>@loan.Book.Title</td>
+                    <td>@loan.Member.Name</td>
+                    <td>@loan.LoanDate.ToShortDateString()</td>
+                    <td>@loan.ReturnDate.ToShortDateString()</td>
+                    <td>
+                        <a href="/Loan/Edit/@loan.Id" class="btn btn-warning">Edit</a>
+                        <a href="/Loan/Delete/@loan.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

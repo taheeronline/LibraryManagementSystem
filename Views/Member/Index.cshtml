@@ -1,0 +1,36 @@
+@model IEnumerable<Member>
+
+@{
+    ViewData["Title"] = "Members";
+}
+
+<div class="content-container">
+    <h2>Members</h2>
+    <a href="/Member/Create" class="btn btn-primary">Add New Member</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model)
+            {
+                <tr>
+                    <td>@member.Id</td>
+                    <td>@member.Name</td>
+                    <td>@member.Email</td>
+                    <td>@member.Phone</td>
+                    <td class="actions">
+                        <a href="/Member/Edit/@member.Id" class="btn btn-warning">Edit</a>
+                        <a href="/Member/Delete/@member.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
