@@ -38,7 +38,7 @@ namespace LibraryManagementSystem.Services
                     await _loanRepository.AddAsync(loan);
 
                     // Get the book and update availability
-                    var book = await _bookRepository.GetByIdAsync(loan.BookId);
+                    Book book = await _bookRepository.GetByIdAsync(loan.BookId);
                     book.IsAvailable = false;
                     await _bookRepository.UpdateAsync(book);
 
@@ -56,12 +56,57 @@ namespace LibraryManagementSystem.Services
 
         public async Task UpdateLoanAsync(Loan loan)
         {
-            await _loanRepository.UpdateAsync(loan);
+            // Start a transaction
+            using (var transaction = await _context.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    // Update the loan
+                    await _loanRepository.UpdateAsync(loan);
+
+                    // Get the book and update availability
+                    Book book = await _bookRepository.GetByIdAsync(loan.BookId);
+                    book.IsAvailable = false;
+                    await _bookRepository.UpdateAsync(book);
+
+                    // Commit the transaction if everything is successful
+                    await transaction.CommitAsync();
+                }
+                catch (Exception)
+                {
+                    // Rollback the transaction if anything goes wrong
+                    await transaction.RollbackAsync();
+                    throw; // Re-throw the exception to handle it elsewhere if needed
+                }
+            }
         }
 
         public async Task DeleteLoanAsync(int id)
         {
-            await _loanRepository.DeleteAsync(id);
+            // Start a transaction
+            using (var transaction = await _context.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    // Get the book and update availability
+                    Loan loan = await _loanRepository.GetByIdAsync(id);
+                    Book book = await _bookRepository.GetByIdAsync(loan.BookId);
+                    book.IsAvailable = true;
+                    await _bookRepository.UpdateAsync(book);
+
+                    // delete the loan
+                    await _loanRepository.DeleteAsync(id);
+
+                    // Commit the transaction if everything is successful
+                    await transaction.CommitAsync();
+                }
+                catch (Exception)
+                {
+                    // Rollback the transaction if anything goes wrong
+                    await transaction.RollbackAsync();
+                    throw; // Re-throw the exception to handle it elsewhere if needed
+                }
+            }
         }
     }
 }
