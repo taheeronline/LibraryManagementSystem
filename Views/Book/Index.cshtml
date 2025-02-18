@@ -4,110 +4,41 @@
     ViewData["Title"] = "Books";
 }
 
-<style>
-    body {
-    }
-
-    .content-container {
-        background-color: rgba(255, 255, 255, 0.8);
-        padding: 20px;
-        border: 2px solid #000;
-        border-radius: 10px;
-        width: 60%;
-        margin: 50px auto;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    h2 {
-        text-align: center;
-        margin-bottom: 20px;
-        font-family: 'Arial', sans-serif;
-    }
-
-    .btn {
-        font-size: 16px;
-        padding: 8px 20px;
-        margin-top: 10px;
-        border-radius: 5px;
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        border: none;
-    }
-
-    .btn-warning {
-        background-color: #ffc107;
-        border: none;
-    }
-
-    .btn-danger {
-        background-color: #dc3545;
-        border: none;
-    }
-
-    table {
-        width: 100%;
-        margin-top: 20px;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    .table {
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .text-danger {
-        font-size: 12px;
-    }
-
-    .actions {
-        display: flex;
-        gap: 10px; /* Provides enough space between the buttons */
-        justify-content: flex-start; /* Aligns the buttons to the left */
-    }
-</style>
-
-<div class="content-container">
-    <h2>Books</h2>
-    <a asp-action="Create" class="btn btn-primary">Add New Book</a>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>ISBN</th>
-                <th>Category</th>
-                <th>Availability</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var book in Model)
-            {
-                <tr>
-                    <td>@book.Title</td>
-                    <td>@book.Author</td>
-                    <td>@book.ISBN</td>
-                    <td>@book.Category?.Name</td>
-                    <td>@(book.IsAvailable ? "Available" : "Checked Out")</td>
-                    <td class="actions">
-                        <a asp-action="Edit" asp-route-id="@book.Id" class="btn btn-warning btn-sm">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@book.Id" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h2 class="text-center mb-4">Books</h2>
+            <a asp-action="Create" class="btn btn-primary rounded mb-3">Add New Book</a>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>ISBN</th>
+                            <th>Category</th>
+                            <th>Availability</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var book in Model)
+                        {
+                            <tr>
+                                <td>@book.Title</td>
+                                <td>@book.Author</td>
+                                <td>@book.ISBN</td>
+                                <td>@book.Category?.Name</td>
+                                <td>@(book.IsAvailable ? "Available" : "Checked Out")</td>
+                                <td class="text-center">
+                                    <a asp-action="Edit" asp-route-id="@book.Id" class="btn btn-warning btn-sm rounded">Edit</a>
+                                    &nbsp;&nbsp;<a asp-action="Delete" asp-route-id="@book.Id" class="btn btn-danger btn-sm rounded">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

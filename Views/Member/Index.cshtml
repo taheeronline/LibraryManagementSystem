@@ -4,33 +4,39 @@
     ViewData["Title"] = "Members";
 }
 
-<div class="content-container">
-    <h2>Members</h2>
-    <a href="/Member/Create" class="btn btn-primary">Add New Member</a>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var member in Model)
-            {
-                <tr>
-                    <td>@member.Id</td>
-                    <td>@member.Name</td>
-                    <td>@member.Email</td>
-                    <td>@member.Phone</td>
-                    <td class="actions">
-                        <a href="/Member/Edit/@member.Id" class="btn btn-warning">Edit</a>
-                        <a href="/Member/Delete/@member.Id" class="btn btn-danger">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h2 class="text-center mb-4">Members</h2>
+            <a href="/Member/Create" class="btn btn-primary rounded mb-3">Add New Member</a>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th hidden>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var member in Model)
+                        {
+                            <tr>
+                                <td hidden>@member.Id</td>
+                                <td>@member.Name</td>
+                                <td>@member.Email</td>
+                                <td>@member.Phone</td>
+                                <td class="text-center">
+                                    <a href="/Member/Edit/@member.Id" class="btn btn-warning btn-sm rounded">Edit</a>
+                                    &nbsp;&nbsp;<a href="/Member/Delete/@member.Id" class="btn btn-danger btn-sm rounded">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
