@@ -139,7 +139,7 @@ namespace LibraryManagementSystem.Controllers
             return View(loan);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
