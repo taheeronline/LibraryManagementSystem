@@ -3,6 +3,19 @@
 @{
     ViewData["Title"] = "Books";
 }
+<style>
+.book-title, .book-author {
+    white-space: normal; /* Allows wrapping */
+    word-wrap: break-word; /* Ensures long words break properly */
+    max-width: 200px; /* Adjust width as needed */
+}
+
+.action-buttons {
+    justify-content: center;
+    gap: 10px; /* Adds spacing between buttons */
+    flex-wrap: nowrap; /* Prevents buttons from wrapping */
+}
+</style>
 
 <div class="container mt-5">
     <div class="card shadow-sm">
@@ -13,26 +26,30 @@
                 <table class="table table-bordered table-hover">
                     <thead class="thead-light">
                         <tr>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>ISBN</th>
-                            <th>Category</th>
-                            <th>Availability</th>
-                            <th class="text-center">Actions</th>
+                            <th style="width: 25%;">Title</th>
+                            <th style="width: 20%;">Author</th>
+                            <th style="width: 15%;">ISBN</th>
+                            <th style="width: 15%;">Category</th>
+                            <th style="width: 10%;">Availability</th>
+                            <th style="width: 15%;" class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var book in Model)
                         {
                             <tr>
-                                <td>@book.Title</td>
-                                <td>@book.Author</td>
+                                <td class="book-title">@book.Title</td>
+                                <td class="book-author">@book.Author</td>
                                 <td>@book.ISBN</td>
                                 <td>@book.Category?.Name</td>
-                                <td>@(book.IsAvailable ? "Available" : "Checked Out")</td>
-                                <td class="text-center">
+                                <td>
+                                    <span class="badge @(book.IsAvailable ? "bg-success" : "bg-danger")">
+                                        @(book.IsAvailable ? "Available" : "Issued")
+                                    </span>
+                                </td>
+                                <td class="text-center action-buttons">
                                     <a asp-action="Edit" asp-route-id="@book.Id" class="btn btn-warning btn-sm rounded">Edit</a>
-                                    &nbsp;&nbsp;<a asp-action="Delete" asp-route-id="@book.Id" class="btn btn-danger btn-sm rounded">Delete</a>
+                                    <a asp-action="Delete" asp-route-id="@book.Id" class="btn btn-danger btn-sm rounded">Delete</a>
                                 </td>
                             </tr>
                         }

@@ -88,7 +88,7 @@ namespace LibraryManagementSystem.Migrations
                     b.Property<int>("MemberId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ReturnDate")
+                    b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
